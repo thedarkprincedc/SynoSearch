@@ -1,6 +1,6 @@
 import os, time
 import json
-import ConfigParser;
+import ConfigParser
 
 def ConfigurationInitialize():
     global search_query
