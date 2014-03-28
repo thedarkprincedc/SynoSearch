@@ -1,8 +1,11 @@
-<?php header('Access-Control-Allow-Origin: http://diskstation'); ?>
+<?php 
+	header('Access-Control-Allow-Origin: http://diskstation'); 
+	require_once("synosearch.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Synobox Search</title>
+	<title><?php echo $ini_array[general_settings][title]; ?></title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 	<script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.6/underscore-min.js"></script>

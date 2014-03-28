@@ -1,4 +1,5 @@
 <?php
+	$ini_array = parse_ini_file("configuration.ini", true);
 	$query_type = (isset($_GET["query"]) != "") ? strtolower ($_GET["query"]) : "";
 	$search_term = (isset($_GET["search"]) != "") ? $_GET["search"] : "";
 	
@@ -11,14 +12,14 @@
 		break;
 		case "videos":
 			$url_file = "/volume1/video/videoindex.txt";
-				$base_url = "video";
+			$base_url = "video";
 		break;
 		case "photos":
 			$url_file = "/volume1/photo/photoindex.txt";
-				$base_url = "photo";
+			$base_url = "photo";
 		break;
 		default:
-		$url_file = "/volume1/shared/books/bookindex.txt";
+			$url_file = "/volume1/shared/books/bookindex.txt";
 			$base_url = "shared/books";
 	}
 	//echo $query_type . " " . $search_term ;
