@@ -34,15 +34,27 @@
 		while (($buffer = fgets($handle, 4096)) !== false) {
 			$ex = explode('/', $buffer);
 			$len = count($ex);
-			$pos1 = stripos($ex[$len-1], $search_term);
-			if ($pos1 === false) {
-				continue;
-			}	
+			// Search By Query
 			
-			$buf = substr($buffer, 1);
-			array_push($trs, array("filename" => $ex[$len-1], 
-									"filepath" => "{$base_url}{$buf}",
-									"filesize" => ""));
+			if($search_term == ""){
+				$buf = substr($buffer, 1);
+				array_push($trs, array("filename" => $ex[$len-1], 
+										"filepath" => "{$base_url}{$buf}",
+										"filesize" => ""));
+			}
+			else{
+				$pos1 = stripos($ex[$len-1], $search_term);
+				if ($pos1 === false) {
+					continue;
+				}	
+				$buf = substr($buffer, 1);
+				array_push($trs, array("filename" => $ex[$len-1], 
+										"filepath" => "{$base_url}{$buf}",
+										"filesize" => ""));
+			}
+			
+		
+			
 		}
 		echo json_encode(array("results" => $trs));
 		if (!feof($handle)) {
