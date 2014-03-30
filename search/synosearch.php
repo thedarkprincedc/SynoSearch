@@ -52,9 +52,6 @@
 										"filepath" => "{$base_url}{$buf}",
 										"filesize" => ""));
 			}
-			
-		
-			
 		}
 		echo json_encode(array("results" => $trs));
 		if (!feof($handle)) {

@@ -1,6 +1,13 @@
 <?php 
 	header('Access-Control-Allow-Origin: http://diskstation'); 
 	require_once("synosearch.php");
+	
+	$menu_string = ""; 
+	foreach($search_configs as $key => $value){
+		$name = $search_configs[$key]["name"];
+		$menu_string .= "<li><a href='#{$name}' id='{$name}link' />{$name}</a></li>";
+	}
+	$menu_string = "<ul>{$menu_string}</ul>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,14 +21,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="nav_bar">
-			<ul>
-				<li><a href="http://diskstation:5000">Admin+</a></li> 
-				<li><a href="#Books" id="booklink">Books</a></li>
-				<li><a href="#Videos" id="videolink">Videos</a></li> 
-				<li><a href="#Photos" id="photolink">Photos</a></li>
-			</ul>
-		</div>
+		<div id="nav_bar"><?php echo $menu_string; ?></div>
 		<div id="search_box_container">
 			<div id="search_box">
 				<form id="search_form">
