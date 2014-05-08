@@ -1,21 +1,21 @@
-var tempString = "";
+
 var resultCount = "";
 function search_drive(search_text){
-	
 	$('#search_result').html("");
 	var t = location.hash.substr(1);
-	
 	if(search_text.length > 0){
-		$.getJSON('synosearch.php?search=' + search_text + "&query=" + t , function(data) {
-			$.each(data.results, function(key, val) {
-				var url = "http://" + window.location.hostname +":5005/" + val.filepath;
-				tempString += "<tr><td><a href='"+url+"'>" + val.filename + "</a></td></tr>";
-				resultCount++;
-			});
-			$('#results_ret').html(resultCount + " Results");
-			$('#search_result').append("<table><thead><th>Filename</th></thead>" + tempString + "</table>");
-		});
+		$.getJSON('synosearch.php?search=' + search_text + "&query=" + t , process_data);
 	}
+}
+function process_data(data){
+	var tempString = "";
+	$.each(data.results, function(key, val) {
+		var url = "http://" + window.location.hostname +":5005/" + val.filepath;
+		tempString += "<tr><td><a href='"+url+"'>" + val.filename + "</a></td></tr>";
+		resultCount++;
+	});
+	$('#results_ret').html(resultCount + " Results");
+	$('#search_result').html("<table><thead><th>Filename</th></thead>" + tempString + "</table>");
 }
 function clear_results(){
 	$('#search_result').html("");
@@ -31,4 +31,4 @@ $(document).ready(function() {
 			clear_results();
 		}
 	});
-})
+});

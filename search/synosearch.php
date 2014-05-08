@@ -3,8 +3,6 @@
 	$ini_array = parse_ini_file("Configuration.ini", true);
 	$search_configs;
 	foreach ($ini_array as $key => $value) {
-		
-		
 		if( preg_match("/[A-Za-z0-9]*_configuration/", $key) == 1){
 			$arry = explode("/", $ini_array[$key]["full_path"]);
 			$ini_array[$key]["drive"] = $arry[1];
@@ -12,13 +10,13 @@
 			$ini_array[$key]["path"] = implode("/", $rw);
 			$search_configs[$key]=$ini_array[$key];
 		}
-		
 	}
 	$query_type = (isset($_GET["query"]) != "") ? strtolower ($_GET["query"]) : "";
 	$search_term = (isset($_GET["search"]) != "") ? $_GET["search"] : "";
 	
 	$url_file = "";
 	$base_url	= "";
+	
 	foreach($search_configs as $key => $value){
 		$name = $search_configs[$key]["name"];
 		if(strcasecmp($name, $query_type) == 0){
