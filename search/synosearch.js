@@ -9,13 +9,14 @@ function search_drive(search_text){
 }
 function process_data(data){
 	var tempString = "";
+	var resultCount = 0;
 	$.each(data.results, function(key, val) {
 		var url = "http://" + window.location.hostname +":5005/" + val.filepath;
 		tempString += "<tr><td><a href='"+url+"'>" + val.filename + "</a></td></tr>";
 		resultCount++;
 	});
-	$('#results_ret').html(resultCount + " Results");
-	$('#search_result').html("<table><thead><th>Filename</th></thead>" + tempString + "</table>");
+	$('#results_ret').html(resultCount);
+	$('#search_result').html("<div class='panel panel-default'><div class='panel-heading'>Results</div><table class='table'><thead><th>Filename</th></thead>" + tempString + "</table></div></div>");
 }
 function clear_results(){
 	$('#search_result').html("");
