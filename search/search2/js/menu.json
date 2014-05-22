@@ -1,0 +1,24 @@
+{
+    "menu": [
+        {
+            "name": "admin+",
+            "path" : "/admin",
+            "full_path": "/volume"
+        },
+        {
+            "name": "books",
+            "path" : "/books",
+            "full_path": "/volume1/shared/books/bookindex.txt"
+        },
+        {
+            "name": "videos",
+            "path": "/videos",
+            "full_path": "/volume1/video/videoindex.txt"
+        },
+        {
+            "name": "photos",
+            "path" : "/photos",
+            "full_path": "/volume1/photo/photoindex.txt"
+        }
+    ]
+}

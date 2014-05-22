@@ -38,7 +38,7 @@
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
 		          </button>
-		          <a class="navbar-brand" href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><?php echo $ini_array[general_settings][title]; ?></a>
+		          <a class="navbar-brand" href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm"><?php echo $ini_array[general_settings][title]; ?></a>
 		        </div>
 		        <div class="navbar-collapse collapse">
 		          	<ul class="nav navbar-nav"><?php echo $menu_string; ?></ul>
@@ -57,31 +57,37 @@
   Launch demo modal
 </button>
 -->
-	<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+
+	<div class="container"><div id="search_result"></div><br/></div>
+	
+	
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
-     
-  <div class="container">
-      <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <hr/>
-        <input type="email" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-    </div> <!-- /container -->
      
     </div>
   </div>
 </div>
+
+<!-- Small modal -->
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<div class="modal-header">Login</div>
+    	<div class="modal-body">  
+    	<center>
+      <p><input type="text" class="username" placeholder="username" /></p>
+      <p></p><input type="password" class="password" placeholder="password" /></p>
+     </center>
+     </div>
+     <div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button>
+     	<button class="login btn btn-primary">Login</button>
+     	</div>
+    </div>
+  </div>
+</div>
 	
-	<div class="container">
-		<div id="search_result"></div><br/>
-	</div>
 	
 	</div>
 </body>
