@@ -1,0 +1,29 @@
+{
+    "application": {
+        "name": "SynoSearch II",
+        "version": "2.0.0",
+        "author": "Brett Mosley",
+        "menu": [
+            {
+                "name": "Admin+",
+                "link": "/Admin",
+                "qterm": "all"
+            },
+            {
+                "name": "Books",
+                "link": "/Books",
+                "qterm": "books"
+            },
+            {
+                "name": "Videos",
+                "link": "/Videos",
+                "qterm": "videos"
+            },
+            {
+                "name": "Music",
+                "link": "/Music",
+                "qterm": "music"
+            }
+        ]
+    }
+}
