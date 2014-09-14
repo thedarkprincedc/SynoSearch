@@ -29,6 +29,9 @@
 			$directory = $ptin;
 		
 			foreach (array_diff(scandir($directory), array('..', '.')) as $key => $value) {
+				if ( (stripos($value, $searchText) === false) && (strlen($searchText)) !== 0) {
+					continue;
+				}
 				$scanned_directory[] = array("filename" => $value,
 											 "filesize" => filesize("{$directory}/{$value}")
 											);
@@ -56,6 +59,7 @@
 														"extension" => "");
 					}
 					else {
+						
 						$jsonSearchDataResult[] = array();
 					}
 				}	

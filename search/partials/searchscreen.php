@@ -1,7 +1,7 @@
 <div ng-controller="SearchScreenController" class="container">
 	<div class="row">
 		<div class="col-xs-10">
-			<input type="text" class="form-control" ng-model="form.search" />
+			<input type="text" class="form-control" ng-model="form.search" ng-keyup="onKeyUpSearchText()" />
 		</div>
 	</div>
 	<div class="row">
