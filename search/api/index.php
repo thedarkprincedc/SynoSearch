@@ -15,5 +15,6 @@ try{
 catch(Exception $e){
 	$jsonArray = array("status" => 500, $e->getMessage());
 }
-print(json_encode($jsonArray));
+header('Content-Type: application/json'); 
+print(json_encode($jsonArray)); 
 ?>

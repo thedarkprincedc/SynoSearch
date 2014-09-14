@@ -4,27 +4,35 @@
 	 */
 	class Synosearch {
 		protected $indexlist;
-		protected $directorypathlist;
-		function __construct($argument) {
-			
+		function __construct() {
+			$this->indexlist = array();
 			
 		}
 		function loadConfiguration($configurationFilename){
 			$ini_array = parse_ini_file($configurationFilename, true);
 			foreach ($ini_array as $key => $value) {
 				if( preg_match("/[A-Za-z0-9]*_configuration/i", $key) > 0){
-					$this->indexlist[$ini_array[$key]["name"]]["index_path"]=$ini_array[$key]["index_path"];
-					$this->directorypathlist[$ini_array[$key]["name"]]=$ini_array[$key]["directory_path"];
-				}
+				
+					$this->indexlist[$ini_array[$key]["name"]]["index_path"]=(isset($ini_array[$key]["index_path"])) ?$ini_array[$key]["index_path"] : null;
+					$this->indexlist[$ini_array[$key]["name"]]["directory_path"]=(isset($ini_array[$key]["directory_path"])) ? $ini_array[$key]["directory_path"] : null;			
+				}				
 			}
 		}
 		function searchnative($request){
 			// check if values were sent in http request
 			$queryTerm = (isset($request["q"])) ? $request["q"] : NULL;
 			$searchText = (isset($request["s"])) ? $request["s"] : NULL;
-			$directoryItem = (isset($this->directorypathlist[$queryTerm])) ? $this->directorypathlist[$queryTerm] : NULL;
-			$directory = './';
-			$scanned_directory = array_diff(scandir($directory), array('..', '.'));
+			
+			$ptin = $this->indexlist[$queryTerm]["directory_path"];
+			//$directoryItem = (isset($this->directorypathlist[$queryTerm])) ? $this->directorypathlist[$queryTerm] : NULL;
+			
+			$directory = $ptin;
+		
+			foreach (array_diff(scandir($directory), array('..', '.')) as $key => $value) {
+				$scanned_directory[] = array("filename" => $value,
+											 "filesize" => filesize("{$directory}/{$value}")
+											);
+			}
 			return array("status" => 200, "message" => "", "data" => $scanned_directory);
  
 		}

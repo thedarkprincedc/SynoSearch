@@ -7,11 +7,11 @@ synosearchControllers.controller('SearchScreenController', ['$scope', '$http', "
 			"filename" : "ddddddd",
 			"filesize" : "ddddddd"
 		});
-		SearchService.query(function(message){
-	  		$scope.searchresults = message;
+		SearchService.query({search : "fff"},function(message){
+	  		$scope.searchresults = message.data;
 	  		console.log(message);
 	  	});
-	  
+	  //
 	  
 	}
 ]);
