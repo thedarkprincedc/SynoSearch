@@ -16,6 +16,12 @@ synosearchApp.config(['$routeProvider',
 			when('/search', {
 				templateUrl: 'partials/searchscreen.php',
 			}).
+			when('/adminadduser', {
+				templateUrl: 'partials/admin_adduser.php',
+			}).
+			when('/adminaddfolder', {
+				templateUrl: 'partials/admin_addfolder.php',
+			}).
 			otherwise({
 		   		redirectTo: '/search'
 			});

@@ -22,6 +22,20 @@ synosearchControllers.controller('SearchScreenController', ['$scope', '$http', "
 	  
 	}
 ]);
+synosearchControllers.controller('AdminAddUser', ['$scope', '$http', "UserService",
+	function ($scope, $http, UserService) {
+		UserService.delete({id:1});
+		UserService.query({},function(tk){
+			$scope.userlist = tk;
+		});
+		
+	}
+]);
+synosearchControllers.controller('AdminAddFolder', ['$scope', '$http', "UserService",
+	function ($scope, $http, UserService) {
+		
+	}
+]);
 synosearchControllers.controller('UploadScreenController', ['$scope', '$http',
 	function ($scope, $http) {
 	   
