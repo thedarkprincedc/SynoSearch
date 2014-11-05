@@ -33,8 +33,10 @@ synosearchServices.factory("UserService", ['$resource',
 ]);
 
 synosearchServices.factory('SearchService', ['$resource',
-	function($resource){
-	    return $resource('api/:phoneId.php?action=search2&q=books', 
+	function($resource)
+	{
+	   // return $resource('api/:phoneId.php?action=search2&q=books', 
+		return $resource('search/:method?:q', 
 	    	{
 	    		search : "@searchterm"
 	    	}, 
@@ -42,7 +44,8 @@ synosearchServices.factory('SearchService', ['$resource',
 	      		query	: 	{
       				method	: 'GET', 
       				params	: { 
-      					phoneId: 'index',
+      					method: 'db',
+      					q : search
       				} 
       				//isArray : true
 	      		},

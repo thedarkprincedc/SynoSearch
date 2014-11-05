@@ -2,10 +2,8 @@
 class database{
 	public $dbconn = null;
 	public function __construct(){
-		$this->dbconn = new PDO("mysql:host=localhost;port=8889;dbname=synosearch;", "root", "root");	
-	}
-	public function loadConfig($inifile){
-		
+		$iniinfo = parse_ini_file("../configuration.ini");
+		$this->dbconn = new PDO("mysql:host={$iniinfo["dbhost"]};port={$iniinfo["dbport"]};dbname={$iniinfo["dbname"]};", "{$iniinfo["dbusername"]}", "{$iniinfo["dbpassword"]}");	
 	}
 }
 ?>
