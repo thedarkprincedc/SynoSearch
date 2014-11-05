@@ -6,64 +6,49 @@ class authenticate extends database{
 		parent::__construct();
 	}
 	public function adduser($postvars){
-		if( ($result = mysqli_query($this->dbconn, "INSERT INTO user (username, password, email) VALUES ('{$postvars['username']}', '{$postvars['passwords']}', '{$postvars['email']}')")) == FALSE)
-		{
-			echo "Failed". mysql_error();
-		}
+		$stmt = $this->dbconn->prepare("INSERT INTO user (username, password, email) VALUES (?,?,?)");
+		$stmt->execute(array($postvars['username'], $postvars['passwords'], $postvars['email']));
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
-	public function removeuser($id){
-		
-		if( ($result = mysqli_query($this->dbconn, "DELETE FROM user WHERE id = {$id}")) == FALSE)
-		{
-			echo "Failed". mysql_error();
-		}
+	public function removeuser($postvars){
+		$stmt = $this->dbconn->prepare("DELETE FROM user WHERE id = ?");
+		$stmt->execute(array($postvars['id']));
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
-	public function showusers(){
-		if( ($result = mysqli_query($this->dbconn, "SELECT * FROM USER")) == FALSE){
-			echo "Failed". mysql_error();;
+	public function showuser($postvars = null){
+		if($postvars == null){
+			$stmt = $this->dbconn->prepare("SELECT * FROM USER");
+			$stmt->execute();
 		}
-		$arr = array();
-		while ($row = mysqli_fetch_assoc($result)) {
-			$arr[] = array(
-				"id" => $row["id"],
-				"username" => $row["username"],
-				"password" => $row["password"],
-				"email" => $row["email"]
-			);
+		else{
+			$stmt = $this->dbconn->prepare("SELECT * FROM USER WHERE username = ?");
+			$stmt->execute($postvars["username"]);
 		}
-		return $arr;
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 	public function sessiondata(){
 		return (isset($_SESSION)) ? $_SESSION : array("loggedin" => FALSE);
 	}
 	public function login($postvars){
-		try{
-			if(!(isset($postvars["username"])))
-				throw new Exception("no username supplied");
-			if(!(isset($postvars["password"])))
-				throw new Exception("no password supplied");
-			$retArr = array();
-			if( ($result = mysqli_query($this->dbconn, "SELECT * FROM user WHERE username = '{$postvars['username']}' AND password = '{$postvars['password']}'")) == FALSE){
-				echo "Failed". mysql_error();
-			}
-			if(mysqli_num_rows($result) == 0){
-				throw new Exception("no account found");
-			}
-			if ($row = mysqli_fetch_assoc($result)) {
-				$retArr = array(
-						"id" => $row["id"],
-						"username" => $row["username"],
-						"email" => $row["email"],
-						"loggedin" => TRUE
-						);
-					
-				$_SESSION = $retArr;
-			}
+		if(!(isset($postvars["username"])))
+			throw new Exception("no username supplied");
+		if(!(isset($postvars["password"])))
+			throw new Exception("no password supplied");
+		$stmt = $this->dbconn->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
+		$stmt->execute(array($postvars['username'], $postvars['password']));
+		if($stmt->rowCount() == 0){
+			throw new Exception("no account found");
 		}
-		catch(Exception $e){
-			$retArr = array("status" => 500, "message" => $e->getMessage());
+		while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		   $retArr = array(
+					"id" => $row["id"],
+					"username" => $row["username"],
+					"email" => $row["email"],
+					"loggedin" => TRUE
+					);
+			$_SESSION = $retArr;
 		}
-		return $retArr;	
+		return $retArr;
 	}
 	public function logout(){
 		try{

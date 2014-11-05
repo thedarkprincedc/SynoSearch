@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 require_once("class.authenticate.php");
 require_once("class.search.php");
 require_once("class.logging.php");
@@ -9,10 +10,11 @@ $app->get('/', function () {
         echo "ujujujju";
     }
 );
+
 $app->group('/users', function () use ($app) {
 	$auth = new authenticate();
 	$app->get('/showusers', function () use ($auth){
-		print(json_encode($auth->showusers()));
+		print(json_encode($auth->showuser()));
 	});
 	$app->post('/adduser', function () use ($app, $auth) { 
 		$auth->adduser($app->request()->post());
@@ -30,12 +32,23 @@ $app->group('/users', function () use ($app) {
 	    print(json_encode($auth->sessiondata()));
 	});
 });
+
 $app->group('/search', function () use ($app) {
-	$app->post('/id/:id', function () use ($app, $auth){
-	    $allPostVars = $app->request->post();
+	$search = new search();
+	$app->get('/db', function () use ($app, $search){
+		print(json_encode($search->search($app->request->get())));
 	});
-	$app->post('/filename/:filename', function () use ($app, $auth){
-	    $allPostVars = $app->request->post();
+	$app->get('/indexfolder', function () use ($app, $search){
+		print(json_encode($search->indexfolder()));
+	});
+	$app->get('/showfolders', function () use ($app, $search){
+		print(json_encode($search->showfolders($app->request->get())));
+	});
+	$app->post('/addfolder', function () use ($app, $search){
+		print(json_encode($search->addfolder($app->request->post())));
+	});
+	$app->post('/removefolder', function () use ($app, $search){
+		print(json_encode($search->addfolder($app->request->post())));
 	});
 });
 

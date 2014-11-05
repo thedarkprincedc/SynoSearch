@@ -2,12 +2,7 @@
 class database{
 	public $dbconn = null;
 	public function __construct(){
-		$this->dbconn = mysqli_connect("localhost", "root", "root", "synosearch", "8889");
-		if (!$this->dbconn) {
-		    echo "Unable to connect to DB: " . mysql_error();
-		    exit;
-		}
-		
+		$this->dbconn = new PDO("mysql:host=localhost;port=8889;dbname=synosearch;", "root", "root");	
 	}
 	public function loadConfig($inifile){
 		

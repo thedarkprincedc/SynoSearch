@@ -10,7 +10,6 @@ var synosearchApp = angular.module('SynosearchApp', [
 });
 
 synosearchApp.config(['$routeProvider',
-	
 	function($routeProvider) {
 		$routeProvider.
 			when('/search', {
